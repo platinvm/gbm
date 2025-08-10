@@ -62,3 +62,12 @@ func (c *Codec[T]) Marshal(v *T, w io.Writer) (int64, error) { return c.marshal(
 
 // Unmarshal reads from r into v.
 func (c *Codec[T]) Unmarshal(v *T, r io.Reader) (int64, error) { return c.unmarshal(v, r) }
+
+// To use with gbm.New(), if error != nil panics
+func Must[T any](c *Codec[T], err error) *Codec[T] {
+	if err != nil {
+		panic(err)
+	}
+
+	return c
+}
